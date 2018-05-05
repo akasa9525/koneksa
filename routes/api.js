@@ -21,8 +21,6 @@ router.post('/surveys/submit',function(req,res,next){
   var q = req.body.que;
   var u_id = req.body.user_id;
   var ans = req.body.ans;
-  //console.log(sname);
-  //res.send({ret:u_id});
   Survey.findOne({survey_name:sname},function(err,doc){
     var que=doc.question;
 
@@ -45,45 +43,6 @@ router.post('/surveys/submit',function(req,res,next){
             });
           }
         }
-        /*
-        if (que[i].ans1.ans == ans){
-          //que[i].ans1.response.append(u_id);
-          que[i].ans1["response"].push(u_id);
-          //que[i].ans1.response=u_id;
-          doc.save(function(er,y){
-            if(er)
-            res.send(er.message);
-            console.log("answer recorded for user "+u_id);
-            res.send(y);
-          });
-        }
-        if (que[i].ans2.ans == ans){
-          que[i].ans2.response=u_id;
-          doc.save(function(er,y){
-            if(er)
-            res.send(er.message);
-            console.log("answer recorded for user "+u_id);
-            res.send(y);
-          });
-        }
-        if (que[i].ans3.ans == ans){
-          que[i].ans3.response=u_id;
-          doc.save(function(er,y){
-            if(er)
-            res.send(er.message);
-            console.log("answer recorded for user "+u_id);
-            res.send(y);
-          });
-        }
-        if (que[i].ans4 == ans){
-          que[i].ans3.response=u_id;
-          doc.save(function(er,y){
-            if(er)
-            res.send(er.message);
-            console.log("answer recorded for user "+u_id);
-            res.send(y);
-          });
-        }*/
       }
       else{
         res.send({"Msg":"Question Not Found!!"})
@@ -114,7 +73,7 @@ router.post('/surveys/submit',function(req,res,next){
 
 });
 
-
+//fetches current available surveys for a user
 router.get('/surveys/fetch',function(req,res,next){
   User.find({id:req.query.id}).then(function(user){
     console.log(user[0].id);
@@ -175,11 +134,6 @@ router.post('/surveys/create_survey',function(req,res,next){
 
 
 router.post('/surveys/create_user',function(req,res,next){
-    //var user = new User(req.body);
-    /*user.save().then(function(user){
-      console.log(req.body.id);
-      console.log(user);
-    });*/
     var temp = req.body;
     temp["joined_date"]=Date();
     var user = new User(temp);
